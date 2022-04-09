@@ -86,6 +86,12 @@
 - [x] Immediately store all data as Coldline, because the access volume is low.
   - _Data cannot be transitioned from Multi-Regional to Regional through Lifecycle Management; that would change the location. The access rate for new data is 60/80000--so very low--and archival data access is even lower (50/850000). Because of this, the most cost-effective option is also the simplest one: just use Coldline for everything._
 
+
+#### Question: You currently have 300TB of Closed-Circuit Television (CCTV) capture data and are adding new data at a rate of 80TB/month. The rate of data captured and needing to be stored is expected to grow to 200TB/month within one year because new locations are being added, each with 4-10 cameras. Archival data must be stored for six months, and as inexpensively as possible. The users of your system currently need to access 250TB of current-month footage and 150TB of archival footage, and access rates are expected to grow linearly with data volume. Which of the following storage options best suits this purpose?
+
+- [x] Store new data as Multi-Regional and then use Lifecycle Management to transition it to Nearline after 30 days.
+  - _Data cannot be transitioned from Multi-Regional to Regional through Lifecycle Management; that would change the location. The access rate for new data is 250/80--so quite high--but archival data access is lower--150/300. Because of this, we need to start with Regional or Multi-Regional (which are fairly close in price) and should transition to Nearline to meet the “as inexpensively as possible” requirement for archival data. And even though the option doesn’t list this, you would probably also want to set the Lifecycle Management to automatically delete the objects after their archival period expires._
+
 #### Question: You need to visualize costs associated with a system you’ve been running on GCP. Which of the following is the best tool for this?
 
 - [x] Data Studio
@@ -130,26 +136,49 @@
 - [x] The n1-highcpu-8 is the least expensive
   - _The number at the end of the machine type indicates how many CPUs it has, and the type tells you where in the range of allowable RAM that machine falls--from minimum (highcpu) to balanced (standard) to maximum (highmem). The cost of each machine type is determined by how much CPU and RAM it uses. Understanding that is enough to correctly answer this question._
 
-#### Question:
+#### Question: You are currently using an n1-highcpu-8 machine type and it is good but you would just like a bit more RAM. Which of the following is the most cost effective option to achieve this?
 
-- [x] 
+- [x] Switch to a custom machine type with 8 CPUs and more RAM
   - 
 
-#### Question:
+#### Question: You need to store thousands of 2TB objects for one month and it is very unlikely that you will need to retrieve any of them. Which of the following options would be the most cost-effective?
+
+- [x] Nearline Cloud Storage bucket
+  - _Bigtable is not made for storing large objects. Coldline’s minimum storage duration of 90 days makes it more expensive than Nearline. Multi-Regional and Regional are both more expensive than Nearline._
+
+#### Question: A team has 3 running Cloud Functions with the same codebase for each of the 3 environments: development, staging, and production. The team does not want to hard code the secrets and variables inside the code to improve the reusability and portability of the codebase. How can the team accomplish this?
+
+- [x] Environment Variables
+  - _When using Cloud Functions, Environment Variables allow the user to provide key-pair values as configuration variables for the code when it is executed. The key to the question is that the team does not want to hard code the secrets and variables inside the code to improve the reusability and portability of the codebase. Only Environment Variables would meet those objectives._
+
+#### Question: You currently have 850TB of Closed-Circuit Television (CCTV) capture data and are adding new data at a rate of 80TB/month. The rate of data captured and needing to be stored is expected to grow to 200TB/month within one year because new locations are being added, each with 4-10 cameras. Which of the following storage options best suits this purpose without encountering storage or throughput limits?
+
+- [x] One Cloud Storage bucket for all objects
+  - _This question might make you think you need to do some math to calculate rates and compare to limits, but you don’t. You don’t need to split your data up to avoid bucket-level limits. It is generally easiest (and best) to manage all your data in a single bucket and using things like folders for organizing them. In fact, if you separate data into many buckets, you are more likely to encounter limits around bucket creation and deletion._
+
+#### Question: You need to store a large amount of unstructured data, including video, audio, image, and text files. The data volume is expected to double every 18 months and data access is sporadic and often clustered on a small portion of the overall data. You would like to reduce ongoing maintenance and management costs. Which option would best serve these requirements?
+
+- [x] Cloud Storage
+  - _Cloud Storage is perfect for unstructured data like this. BigQuery is made for analytics of structured data. Bigtable is made for low-latency analytics of non-relational data. Cloud SQL is not a good tool to store unstructured data like this and managing your own MySQL installation on GCE would be even worse._
+
+#### Question: You need to host a legacy accounting process on SUSE Linux Enterprise Server 12 SP3. Which of the following is the best option for this?
+
+- [x] GCE
+
+#### Question: You need to store trillions of key/value data entries (2KB in size) for one month, and you will need to run analytical processing against all of them from hundreds of nodes. Which of the following options would be the most cost-effective?
+
+- [x] Bigtable
+  - _Bigtable is made for large analytical workloads. With Cloud Storage, you pay for read operations, so that can get quite expensive when it's not the right fit for the data and access patterns._
+
+#### Question: 
 
 - [x] 
-  - 
+  - __
 
-#### Question:
-
-- [x] 
-  - 
-
-#### Question:
+#### Question: 
 
 - [x] 
-
-
+  - __
 
 ## Deploying and implementing a cloud solution
 
