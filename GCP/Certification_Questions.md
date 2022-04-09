@@ -112,6 +112,165 @@
 
 ## Deploying and implementing a cloud solution
 
+#### Question: Which of the following statements is true?
+
+- [x] None of the other statements is true.
+- [ ] Service Accounts should be used by GKE nodes and pods but not by GCE instances.
+- [ ] You must specify a Service Account when creating an instance or none will be attached.
+- [ ] Every instance must have a Service Account attached to it.
+  - _If you don't do (or specify) anything, the default service account will be attached by default to each new GCE instance. However, you can stop that from happening by either deleting the default service account or opting out of attaching it when you are creating a new GCE instance._
+
+#### Question: A team aims to create a storage bucket that stores files which are accessed once every 6 months. Which CLI command is used to perform this task?
+
+- [x] gsutil mb -c coldline gs://
+  - _Coldline is suitable for storage buckets accessed rarely. To create a bucket the gsutil mb command is used._
+
+#### Question: A Java program running on a GCE instance needs access to the Cloud Tasks API. Which of the following is NOT something Google would recommend for this configuration?
+
+- [x] The program should pass “Metadata-Flavor: Google” to the SDK
+- [ ] The GCE instance should be using a service account
+- [ ] The service account should have access to the Cloud Tasks API
+- [ ] The access scopes should include access to the Cloud Tasks API
+- [ ] The program should use the Google SDK
+  - _Java programs can use the SDK to access GCP services, and the SDK will take care of the details of retrieving the access token from the metadata service and communicating with the service. As such, your program does not need to concern itself with the “Metadata-Flavor: Google” header; the SDK will handle that._
+
+#### Question: You are monitoring a GKE cluster and see that a pod is being terminated. What will happen?
+
+- [x] The memory used by the containers will be freed.
+  - _There are such things as deployments and StatefulSets, but they don’t have domains or ports, respectively. GKE doesn’t have such a thing as a PersistentSet, but it does have DaemonSets._
+
+#### Question: You want to create a new regional bucket in Iowa. How could you go about doing this?
+
+- [x] Begin creating the bucket, set the bucket name, set the Location type to Region, and select the us-central1(Iowa) Location, and choose CREATE.
+  - _The steps to create a bucket in Iowa would be: Begin creating the bucket, set the bucket name, set the Location type to Region, and select the us-central1(Iowa) Location, and choose CREATE._
+
+#### Question: You are thinking through all the things that happen when a Compute Engine instance starts up with a startup script that installs the Stackdriver agent and runs gsutil to retrieve a large amount of data from Cloud Storage. Of the following steps, which is the last one to happen?
+
+- [x] Data retrieval from GCS completes
+  - _Immediately when the VM is powered on, resources are allocated and acquired, the OS starts booting up, and the instance is considered to be Running. That's when gcloud completes, if it was run without --async. Then the metadata service will provide the startup script to the OS boot process. The gsutil command will also need to get metadata--like the service account token--but since it is synchronous by default and will take some time to transfer the volume of data to the instance, the Stackdriver agent should have a chance to push logs and show the startup script progress. When the transfer is done, the startup script will complete and more logs will eventually be pushed to Stackdriver Logging._
+
+#### Question: You need to very quickly set up Nginx Plus on GCP. Which of the following is the fastest option to get up and running?
+
+- [x] GCP Marketplace
+  - _Nginx cannot run on Cloud Functions, nor on App Engine Standard. Setting it up on Kubernetes Engine would take rather more time/effort than using the marketplace. The GCP Marketplace is a quick way to deploy all sorts of different systems, including Nginx Plus._
+
+#### Question: Which of the following command line options can be used to create a bucket in Cloud Storage?
+
+- [x] gsutil
+  - __
+
+#### Question: You need to very quickly set up Wordpress on GCP. Which of the following are the fastest options to get up and running?
+
+- [x] GCP Marketplace
+- [x] Cloud Launcher
+  - _There is no such GCP service as “Cloud Press”. Wordpress is not designed to run on Google Cloud Functions. The Cloud Launcher was renamed to be the GCP Marketplace--so these refer to the same thing--and this is a quick way to deploy all sorts of different things in GCP. _
+
+## Ensuring successful operation of a cloud solution
+
+#### Question: After an initial audit of the resources of an existing Kubernetes cluster, the DevOps team of a company has noticed that pods for workloads running a staging environment are still running after an initial deletion of all pods. The DevOps team has performed the pod deletion operation but new pods get created to replace the deleted pods. How can the team remove these pods permanently?
+
+- [x] Delete the ReplicaSet
+  - _The ReplicaSet automatically creates the pods to maintain the desired state (e.g. number of pods/replicas). If the ReplicaSet is not deleted and only the pods are deleted directly, the number of pods will continue to meet the desired state. All other options will not solve this requirement. _
+
+#### Question: You are designing the logging structure for a non-containerized Java application that will run on GCE. Which of the following options is recommended and will use the least number of steps to enable your developers to later access and search logs?
+
+- [x] Have the developers write log lines to a file named application.log, install the Stackdriver agent on the VMs, configure the Stackdriver agent to monitor and push application.log
+  - _The App Engine SDKs only work for apps running on App Engine. Stackdriver does not automatically send files named stackdriver.log . Stackdriver is not installed by default on GCE. Logging to stdout and stderr on GCE is not the recommended way to get logs to Stackdriver; configuring a custom log file location is._
+
+#### Question: You are designing the logging structure for a containerized Java application that will run on GAE Flex. Which of the following options is recommended and will use the least number of steps to enable your developers to later access and search logs?
+
+- [x] Have the developers write log lines to stdout and stderr
+  - _In App Engine Flex the connection to Stackdriver (i.e. agent installation and configuration) is handled automatically for you. In GAE Flex, you could write logs using the App Engine SDK--and that would work--but it’s best practice for containers to log to stdout and stderr, instead: “Containers offer an easy and standardized way to handle logs because you can write them to stdout and stderr. Docker captures these log lines and allows you to access them by using the docker logs command. As an application developer, you don't need to implement advanced logging mechanisms. Use the native logging mechanisms instead.” _
+
+#### Question: Your team is running a Kubernetes cluster in GCP. One of the engineers has created a service that acts as a load balancer to several pods. Unfortunately, the setup does not work and the load balancer does not seem to detect the target pods. The engineer was instructed to list down the labels of the pods running in the cluster to troubleshoot this issue. How can the engineer accomplish this?
+
+- [x] kubectl get pods --show-labels
+
+#### Question: A medium-sized company has been running multiple pods in multiple namespaces in GCP. A junior service reliability engineer has used the command to list all pods but some of the running pods from other namespaces do not show up in the results. How can the junior engineer list down the pods from other namespaces as well?
+
+- [x] kubectl get pods --all-namespaces
+
+#### Question: A team is planning to analyze the network logs of an application that has been running for a couple of weeks. Which of the following enables the team to perform this analysis?
+
+- [x] Flow Logs
+  - _The flow logs contain the network logs of the network environment which can be used for analysis_
+
+#### Question: A CloudSQL database is experiencing more read transactions recently due to the increasing need for admin reports by a system. Which of the following can be used to reduce the load issues experienced by the system?
+
+- [x] Read Replicas
+
+#### Question: You have a StatefulSet and a DaemonSet deployed in your GKE cluster which currently has seven nodes. What will happen if you scale the cluster down to six nodes?
+
+- [x] The number of pods for the DaemonSet will shrink.
+  - _A DaemonSet runs one pod per GKE node._
+
+#### Question: You have a GKE cluster that currently has six nodes but will soon run out of capacity. What should you do?
+
+- [x] In the GKE console, edit the cluster and specify the new desired size.
+  - _Clusters are editable, not immutable, and should not be recreated because of changes in demand. Cluster autoscaling is an optional setting. You do not manage nodes via GCE, directly--you always manage them through GKE, even though you can see them via GCE._
+
+#### Question: A team is running multiple production workloads in GCP. Due to the number of issues experienced by the team for the past 3 weeks, the Operations Head has asked the SRE team to send all stack traces and error crashes to a centralized service to help manage these issues. How can the team accomplish this?
+
+- [x] Stackdriver Error Reporting
+  - _When dealing with stack traces, Stackdriver Error Reporting is the option to choose._
+
+## Configuring access and security
+
+#### Question: Which of the following roles has the highest level of access?
+
+- [x] Project Owner
+  - _There are no such roles as Organization Superuser, Organization Auditor, nor Controller. The Project Owner has all of the capabilities of the other two (Project Editor and Compute Administrator), and more. (There is, however, a “Super Admin” role for an organization that can control everything.)_
+
+#### Question: You are working together with a contractor from the Acme company and you need to allow App Engine running in one of Acme’s GCP projects to write to a Cloud Pub/Sub topic you own. Which of the following pieces of information are enough to let you enable that access?
+
+- [x] The email address of the Acme project service account
+- [x] The Acme GCP project’s project ID
+  - _You need to grant access to the service account being used by Acme’s App Engine app, not the contractor, so you don’t care about the contractor’s email address. If you are given the service account email address, you’re done; that’s enough. If you need to use the pattern to construct the email address, you’ll need to know the Project ID (not its number, unlike for GCE!) to construct the email address used by the default App Engine service account: _
+
+#### Question: How should you enable a GCE instance to read files from a bucket in the same project?
+
+- [x] Only one of the other options is correct
+- [x] Do not change the default service account setup and attachment
+- [ ] Log onto the instance and run gcloud services enable storage.googleapis.com
+- [ ] Grant bucket read access to the default compute service account
+- [ ] Log into Cloud Shell and run gcloud services enable storage.googleapis.com
+- [ ] When launching the instance, remove the default service account so it falls back to project-level access
+  - _By default, both the default service account and the default scopes can read from GCS buckets in the same project, so you should just leave those alone and it will work._
+
+#### Question: Which IAM permission allows a user to modify the Cloud Storage ACLs?
+
+- [x] storage.objects.setIamPolicy
+  - __
+
+#### Question: You navigate to the Activity Log for a project containing a GKE cluster you created. If you select VM Instance for the filter option, which would be an example of output you should see?
+
+- [x] 843749848358@cloudservices.gserviceaccount.com created gk3-autopilot-cluster-1-default-pool-569d40f6-dw8l
+  - _Log lines for GKE node creation will show up in the activity log. The Google-managed API Service Agent account creates such entries, not the user’s account or the GCE service account._
+
+#### Question: You need to list objects in a newly-created GCS bucket. Which of the following would allow you to do this?
+
+- [x] roles/storage.legacyBucketReader
+- [x] roles/owner
+
+#### Question: You are designing the object security structure for sensitive customer information. Which of the following should you be sure to include in your planning?
+
+- [x] Assign only limited access, to achieve least privilege
+
+#### Question: You have a GCE instance using the default service account and access scopes allowing full access to storage, compute, and billing. What will happen if an attacker compromises this instance and runs their own program on it?
+
+- [x] None of the other options is correct. 
+  - _Requiring the “Metadata-Flavor: Google” header protects against a different type of attack than the one described in this question, so it will not help in this case. The access token will be available to the attacker’s program and it will work the same way from outside of GCP as it does from within it, regardless of the MAC address. In particular, the token will only allow the attacker (as any user) to perform whatever is allowed by both the service account and the access scopes. Since both the service account and the access scopes are missing some capabilities from the other, the actual access possible by using the token will be less than either of them, independently. _
+
+#### Question: You are designing the object security structure for sensitive customer information. Which of the following should you be sure to include in your planning?
+
+- [x] Do not grant any bucket-level permissions, so that new objects are secure by default.
+  - _Separation of duties is not about who can read and who can write data. Security should be simple, yes, but it needs to actually be secure, first. You should generally not design your system to need so many buckets, and you can properly secure the data with object-level ACLs. It can be a good strategy to not allow any bucket-level access and force access to be granted explicitly at the object level. _
+
+#### Question: You are planning out your usage of GCP. Which of the following things do you need to consider about Service Accounts?
+
+- [x] The default service account is restricted in what it can do by the default access scopes.
+  - _The scopes that restrict what can be done through a service account are somewhat limited, by default._
+
 #### Question: 
 
 - [x] 
@@ -126,141 +285,12 @@
 
 - [x] 
   - __
-#### Question: 
-
-- [x] 
-  - __
 
 #### Question: 
 
 - [x] 
   - __
-#### Question: 
 
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
 #### Question: 
 
 - [x] 
