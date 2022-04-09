@@ -54,6 +54,26 @@
 - [x] In the console, press on the current project name, then press on “Create New”.
   - _You can create new projects, up to your quota. Support does not create projects for you; that's something you do, yourself. “QUIK bindings” are just something made up._
 
+#### Question:
+
+- [x] 
+  - 
+
+#### Question:
+
+- [x] 
+  - 
+
+#### Question:
+
+- [x] 
+  - 
+
+#### Question:
+
+- [x] 
+  - 
+
 ## Planning and configuring a cloud solution
 
 #### Question: You currently have 850TB of Closed-Circuit Television (CCTV) capture data and are adding new data at a rate of 80TB/month. The rate of data captured and needing to be stored is expected to grow to 200TB/month within one year because new locations are being added, each with 4-10 cameras. Archival data must be stored indefinitely, and as inexpensively as possible. The users of your system currently need to access 250TB of current-month footage and 100GB of archival footage, and access rates are expected to grow linearly with data volume. Which of the following storage options best suits this purpose?
@@ -110,6 +130,27 @@
 - [x] The n1-highcpu-8 is the least expensive
   - _The number at the end of the machine type indicates how many CPUs it has, and the type tells you where in the range of allowable RAM that machine falls--from minimum (highcpu) to balanced (standard) to maximum (highmem). The cost of each machine type is determined by how much CPU and RAM it uses. Understanding that is enough to correctly answer this question._
 
+#### Question:
+
+- [x] 
+  - 
+
+#### Question:
+
+- [x] 
+  - 
+
+#### Question:
+
+- [x] 
+  - 
+
+#### Question:
+
+- [x] 
+
+
+
 ## Deploying and implementing a cloud solution
 
 #### Question: Which of the following statements is true?
@@ -144,6 +185,10 @@
 - [x] Begin creating the bucket, set the bucket name, set the Location type to Region, and select the us-central1(Iowa) Location, and choose CREATE.
   - _The steps to create a bucket in Iowa would be: Begin creating the bucket, set the bucket name, set the Location type to Region, and select the us-central1(Iowa) Location, and choose CREATE._
 
+#### Question: You are thinking through all the things that happen when a Compute Engine instance starts up with a startup script that installs the Stackdriver agent and runs gsutil to retrieve a large amount of data from Cloud Storage. Of the following steps, which is the first one to happen?
+
+- [x] The metadata service returns information about this instance to the first requestor
+
 #### Question: You are thinking through all the things that happen when a Compute Engine instance starts up with a startup script that installs the Stackdriver agent and runs gsutil to retrieve a large amount of data from Cloud Storage. Of the following steps, which is the last one to happen?
 
 - [x] Data retrieval from GCS completes
@@ -164,6 +209,42 @@
 - [x] GCP Marketplace
 - [x] Cloud Launcher
   - _There is no such GCP service as “Cloud Press”. Wordpress is not designed to run on Google Cloud Functions. The Cloud Launcher was renamed to be the GCP Marketplace--so these refer to the same thing--and this is a quick way to deploy all sorts of different things in GCP. _
+
+#### Question: What will happen if a running GKE node encounters a fatal error?
+
+- [x] GKE will automatically restart that node on an available GCE host.
+  -  _Nodes are GCE instances managed by the GKE system. If one of the nodes dies, GKE will bring another node up to replace it and will ensure that any affected pods are restarted._
+
+#### Question: What will happen if a running GKE pod encounters a fatal error?
+
+- [x] If it is a part of a deployment, GKE will automatically restart that pod on an available node.
+  - _GKE tries to ensure that the number of pods you’ve specified in your deployment are always running, so it will restart one if it fails. All the other options are using terms in ways that don’t make sense (such as “an available deployment”). From the documentation: Pods do not 'heal' or repair themselves. For example, if a Pod is scheduled on a node which later fails, the Pod is deleted. Similarly, if a Pod is evicted from a node for any reason, the Pod does not replace itself._
+
+#### Question: You are planning to run a single-node database on GKE. Which of the following things do you need to consider?
+
+- [x] You should use PersistentVolume and PersistentVolumeClaim objects
+  - _Databases are all about preserving information--about keeping and not losing data--so we need to make sure that GKE knows that we care about the data we store and need to keep it around. To do this, we need Persistent Volumes and Persistent Volume Claims. GKE does not replicate disks across pods; it ensures that the data for a pod persists and is still available to it when it recovers from a failure. _
+
+#### Question: You need to set up Lifecycle Management on a new Cloud Storage bucket. Which of the following options should you consider?
+
+- [x] Identify an existing bucket with the configuration you want, download that bucket’s configuration JSON using the JSON API, apply the configuration file for the new bucket via gsutil.
+  - _There are some details here that you just need to remember: 1) The GCS console does not deal with Lifecycle configuration files, 2) gsutil deals with JSON files, and 3) the JSON and XML APIs each deal with JSON and XML, respectively. _
+
+#### Question:
+
+- [x] 
+  - __
+
+#### Question:
+
+- [x] 
+  - __
+
+#### Question:
+
+- [x] 
+  - __
+
 
 ## Ensuring successful operation of a cloud solution
 
@@ -190,6 +271,15 @@
 
 - [x] kubectl get pods --all-namespaces
 
+#### Question: A new hire from the engineering team was given a task of debugging the contents of a Kubernetes secret as a YAML file. How can the new hire accomplish this?
+
+- [x] kubectl get secret -o yaml
+
+#### Question: An associate engineer needs to scale a Replica Set named 'target-replicaset' to 5. Which command will allow the associate engineer to accomplish this task?
+
+- [x] kubectl scale --replicas=5 rs/target-replicaset
+  - _The kubectl scale command is used to scale the replicaset from the command line._
+
 #### Question: A team is planning to analyze the network logs of an application that has been running for a couple of weeks. Which of the following enables the team to perform this analysis?
 
 - [x] Flow Logs
@@ -213,6 +303,36 @@
 
 - [x] Stackdriver Error Reporting
   - _When dealing with stack traces, Stackdriver Error Reporting is the option to choose._
+
+#### Question: An associate engineer was instructed to change an empty Cloud Storage bucket from one region to another. How can the associate engineer accomplish this?
+
+- [x] Delete the original bucket. Create a new bucket in the target region.
+  - _A new bucket must be created as the region can not be modified after a bucket is created._
+
+#### Question: You run the command kubectl describe pods mypodname in Cloud Shell. What should you expect to see?
+
+- [x] Information about the named pod
+  - _This is a valid command and Cloud Shell will automatically configure kubectl with the required authentication information to allow you to interact with the GKE cluster through it._
+
+#### Question: A service reliability engineer has been instructed to generate a Kubernetes secret for a staging Kubernetes cluster. The engineer was given a .env.staging file that contains key-value pairs inside a file which is loaded by the application. How can the service reliability engineer accomplish this?
+
+- [x] kubectl create secret generic --from-file=.env.staging
+  - _One of the options to generate a secret from a file is with the use of the --from-file flag. All other options will not solve this requirement._
+
+#### Question:
+
+- [x] 
+  - __
+
+#### Question:
+
+- [x] 
+  - __
+
+#### Question:
+
+- [x] 
+  - __
 
 ## Configuring access and security
 
@@ -271,32 +391,36 @@
 - [x] The default service account is restricted in what it can do by the default access scopes.
   - _The scopes that restrict what can be done through a service account are somewhat limited, by default._
 
-#### Question: 
+#### Question: Can you generate access keys for service accounts?
 
-- [x] 
+- [x] Yes. You may generate a small number of keys per service account to facilitate key rotation.
+  - _It is best when you let Google manage all service account keys, but it is possible to generate some so you can use them outside of the situations that GCP handles--such as from AWS or your local machine. You don’t need to remember how many keys you can generate (10), only that the reason you can create more than one is so that you can put a new one in place before disabling an old one (i.e. key rotation)._
+
+#### Question: You are planning out your organization’s usage of GCP. Which of the following is a Google-recommended practice?
+
+- [x] None of the other options is correct.
+- [ ] GCS ACLs should always be set by a Service Account.
+- [ ] GCS ACLs should always be set to a Service Account.
+- [ ] Auditor access should be granted through a Service Account.
+- [ ] The project owner should generally be a Service Account.
+  - _Service accounts are meant to be used by programs and they are one--but not the only!--way to manage access to resources._
+
+#### Question: You need to determine who just started a particular GCE instance that does not meet your organization’s resource labelling policies. How can you determine who to follow up with, in the least number of steps?
+
+- [x] From the notifications menu, navigate to the Activity Log. Look for the log line, “Create VM”.
   - __
 
-#### Question: 
+#### Question: You go to the Activity Log to look at the “Create VM” event for a GCE instance you just created. You set the Resource Type to “GCE VM Instance”. Which of the following will display the “Create VM” event you wish to see?
 
-- [x] 
-  - __
+- [x] Set the “Activity Types” dropdown to “Configuration”
+  - _You must become very familiar with the Activity Log. In this case, “Create VM” is considered to be a “Configuration” activity._
 
-#### Question: 
+#### Question: A team needs to be given granular access to a GCP service because of the need to protect very sensitive data in the account. The team is also avoiding the usage of custom roles and prefers GCP managed roles for this account. Which IAM role would fit this use case?
 
-- [x] 
-  - __
+- [x] Predefined
+  - _For requirements that involve GCP managed roles while avoiding the usage of custom roles, the Predefined roles would fit the use case._
 
-#### Question: 
+#### Question: A co-worker tried to access the myfile file that you have stored in the mybucket GCS bucket, but they were denied access? Which of the following represents the best way to allow them to view it?
 
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
-
-#### Question: 
-
-- [x] 
-  - __
+- [x] In Cloud Shell, type gsutil acl ch -u coworker@email.domain:r gs://mybucket/myfile
+  - _There is no “Add Exception” button on the Activity screen. Neither will gcloud storage allow-access work. You could add the co-worker as a project editor, but that is way more privilege than they need to view one file._
