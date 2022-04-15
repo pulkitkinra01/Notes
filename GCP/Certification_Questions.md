@@ -259,15 +259,15 @@
 - [x] Identify an existing bucket with the configuration you want, download that bucket’s configuration JSON using the JSON API, apply the configuration file for the new bucket via gsutil.
   - _There are some details here that you just need to remember: 1) The GCS console does not deal with Lifecycle configuration files, 2) gsutil deals with JSON files, and 3) the JSON and XML APIs each deal with JSON and XML, respectively. _
 
-#### Question:
+#### Question: You run the command kubectl deploy-pod mypodname in Cloud Shell. What should you expect to see?
 
-- [x] 
-  - __
+- [x] An “unknown command” error
+  - _This is not a valid command and kubectl will complain that it is unknown. [Cheat Sheet for kubectl](https://kubernetes.io/docs/reference/kubectl/cheatsheet/) [Viewing Pods and Nodes in Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/)_
 
-#### Question:
+#### Question: You are planning to run a multi-node database on GKE. Which of the following things do you need to consider?
 
-- [x] 
-  - __
+- [x] You should use a StatefulSet object
+  - _There is no such thing as a PodReplicationState object, in Kubernetes. Data will be persisted in Persistent Volumes even if all DB pods have failed or been shut down. Kubernetes StatefulSet objects exist to manage applications that do want to preserve state--unlike the normal applications that should be stateless. Deploying a Stateful Application on GKE Why StatefulSets and not just persistent volumes?_
 
 #### Question:
 
@@ -348,15 +348,30 @@
 - [x] kubectl create secret generic --from-file=.env.staging
   - _One of the options to generate a secret from a file is with the use of the --from-file flag. All other options will not solve this requirement._
 
-#### Question:
+#### Question: An engineer needs to present a PoC (Proof of Concept) work to the team's Deployment Head that demonstrates the capabilities of Kubernetes in GCP. The engineer plans to create new resources from a file accessible in a URL such as Github. How can the engineer accomplish this?
 
-- [x] 
-  - __
+- [x] kubectl apply -f
+  - _The YAML config can be used directly from a URL and the same kubectl apply -f command is used with the URL as the parameter._
 
-#### Question:
+#### Question: A Kubernetes cluster is running a pod named 'target-pod' that has been running for at least 2 days. The team has realized that the try-catch block in the backend API is simply printing out and logging the errors in the API's container which is causing data integrity issues for the application. The lead engineer needs shell access to the container to check the printed errors. Which command will give the lead engineer access to the container?
 
-- [x] 
-  - __
+- [x] kubectl exec -it target-pod -- /bin/bash
+  - _To get ssh access to the pod, the kubectl exec -it command is used. All other options are not possible. All other options will not solve this requirement. _
+
+#### Question: You need to view both request and application logs for your Python-based App Engine app. Which of the following options would be best?
+
+- [x] Use the built-in support to get both request and app logs to Stackdriver.
+  - _Google App Engine natively connects to Stackdriver and sends both request logs and any application logs you give it (via the GAE SDK). _
+
+#### Question: A Kubernetes cluster with 4 nodes is running production workloads for a couple of months. The team managing the cluster was instructed to install a monitoring agent on all nodes of the cluster. Which Kubernetes API resource can be used to accomplish this task?
+
+- [x] DaemonSet
+  - _DaemonSet is used to ensure that a specific process is running on all nodes. All other options will not solve this requirement. Kubernetes: DaemonSet_
+
+#### Question: You have a GKE cluster that has fluctuating load over the course of each day and you would like to reduce costs. What should you do?
+
+- [x] In the GKE console, edit the cluster and enable cluster autoscaling.
+  - _Clusters are editable, not immutable, and should not be recreated because of changes in demand. You cannot manage GKE nodes with your own instance groups--and you can’t migrate nodes into a managed instance group, anyway. You cannot enable cluster autoscaling with the resize command, but you can turn that option on in the console or using the command gcloud container clusters update CLUSTER_NAME --enable-autoscaling_
 
 #### Question:
 
